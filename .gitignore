@@ -31,6 +31,5 @@ npm-debug.log*
 /www
 /platforms
 /plugins
-/resources
 
 *-lock.json
