@@ -7,11 +7,11 @@
 </ion-header>
 
 <ion-content>
-  <div class="ion-padding">
-    <ion-button (click)="onClickCapture()" expand="block">Capture</ion-button>
-  </div>
   <!-- <video width="100%" [hidden]="!replyURL" preload controls playsinline src="assets/videos/1.mp4"> -->
   <video width="100%" [hidden]="!replyURL" autoplay preload controls playsinline #myvideo>
     <!-- <source src="assets/videos/1.mp4" type="video/mp4"> -->
   </video>
+  <div class="ion-padding">
+    <ion-button (click)="onClickCapture()" expand="block">Capture</ion-button>
+  </div>
 </ion-content>
