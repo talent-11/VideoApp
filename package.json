@@ -78,8 +78,7 @@
       "cordova-plugin-ionic-webview": {},
       "cordova-plugin-ionic-keyboard": {},
       "cordova-plugin-media-capture": {},
-      "cordova-plugin-file": {},
-      "com.moust.cordova.videoplayer": {}
+      "cordova-plugin-file": {}
     },
     "platforms": [
       "ios"
