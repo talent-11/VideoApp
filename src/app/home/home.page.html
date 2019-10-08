@@ -11,8 +11,19 @@
   <video width="100%" [hidden]="!captured" autoplay preload controls playsinline #myvideo>
     <!-- <source src="assets/videos/1.mp4" type="video/mp4"> -->
   </video>
+
   <div class="ion-padding">
-    <ion-button [hidden]="device==2" (click)="onClickCapture()" expand="block">Capture</ion-button>
-    <input [hidden]="device==1" type="file" accept="video/*;capture=camcorder" value="Capture">
+    <!-- <ion-button *ngIf="device==1" (click)="onClickCapture()" expand="block">Capture</ion-button>
+    <div *ngIf="device==2">
+      <input type="file" accept="video/*;capture=camcorder" id="capture_button" />
+      <ion-button (click)="onClickCapture()" expand="block">Capture</ion-button>
+    </div> -->
+
+    <div>
+      <input type="file" accept="video/*" id="capture" capture="camcorder" #myinput>
+      <!-- <input type="file" name="video" accept="video/*" capture="environment"> -->
+    
+      <ion-button (click)="onClickCapture()" expand="block">Capture</ion-button>
+    </div>
   </div>
 </ion-content>

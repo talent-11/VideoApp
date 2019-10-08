@@ -14,6 +14,7 @@ const BROSWER = 2;
 })
 export class HomePage {
   @ViewChild('myvideo', { read: ElementRef, static: false }) myVideo: ElementRef;
+  @ViewChild('myinput', { read: ElementRef, static: false }) myInput: ElementRef;
   captured = null;
   device;
 
@@ -25,8 +26,36 @@ export class HomePage {
     this.device = (this.platform.is('android') || this.platform.is('ios')) ? MOBILE : BROSWER;
   }
 
+  ionViewWillEnter() {
+    var input: any = document.querySelector('input[type=file]');
+    let _this = this;
+    input.onchange = function () {
+      var file = input.files[0];
+      alert(file.size)
+      _this.replyVideo(file);
+    };
+
+  }
+
+  replyVideo(file) {
+    var reader = new FileReader();
+    let _this = this;
+
+    reader.onload = function (e) {
+      alert("loaded")
+      var dataURL = (e.target as any).result;
+      _this.captured = "yes";
+      let video = _this.myVideo.nativeElement;
+      video.src = dataURL;
+      video.play();
+    };
+  
+    reader.readAsDataURL(file);
+  }
+
   onClickCapture() {
-    this.device == MOBILE ? this.captureOnMobile() : this.captureOnBrowser()
+    this.captureOnBrowser()
+    // this.device == MOBILE ? this.captureOnMobile() : this.captureOnBrowser()
   }
 
   captureOnMobile() {
@@ -60,6 +89,6 @@ export class HomePage {
   }
 
   captureOnBrowser() {
-
+    this.myInput.nativeElement.click();
   }
 }
