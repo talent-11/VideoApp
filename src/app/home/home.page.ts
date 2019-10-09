@@ -1,11 +1,8 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { Platform } from '@ionic/angular';
 import { MediaCapture, MediaFile, CaptureError, CaptureVideoOptions } from '@ionic-native/media-capture/ngx';
 import { File } from '@ionic-native/file/ngx';
 
 const RECORD_TIME = 10;
-const MOBILE = 1;
-const BROSWER = 2;
 
 @Component({
   selector: 'app-home',
@@ -16,46 +13,35 @@ export class HomePage {
   @ViewChild('myvideo', { read: ElementRef, static: false }) myVideo: ElementRef;
   @ViewChild('myinput', { read: ElementRef, static: false }) myInput: ElementRef;
   captured = null;
-  device;
+  isApp;
 
   constructor(
     private mediaCapture: MediaCapture,
     private file: File,
-    private platform: Platform,
   ) {
-    this.device = (this.platform.is('android') || this.platform.is('ios')) ? MOBILE : BROSWER;
+    this.isApp = (!document.URL.startsWith('http') || document.URL.startsWith('http://localhost:8080'))
   }
 
   ionViewWillEnter() {
-    var input: any = document.querySelector('input[type=file]');
+    let input: any = document.querySelector('input[type=file]');
     let _this = this;
     input.onchange = function () {
-      var file = input.files[0];
-      alert(file.size)
-      _this.replyVideo(file);
+      if (input.files && input.files.length > 0) {
+        let file = input.files[0];
+        _this.replayVideo(file);
+      }
     };
-
   }
 
-  replyVideo(file) {
-    var reader = new FileReader();
-    let _this = this;
-
-    reader.onload = function (e) {
-      alert("loaded")
-      var dataURL = (e.target as any).result;
-      _this.captured = "yes";
-      let video = _this.myVideo.nativeElement;
-      video.src = dataURL;
-      video.play();
-    };
-  
-    reader.readAsDataURL(file);
+  replayVideo(file) {
+    this.captured = "yes";
+    let video = this.myVideo.nativeElement;
+    video.src = URL.createObjectURL(file);
+    video.play();
   }
 
   onClickCapture() {
-    this.captureOnBrowser()
-    // this.device == MOBILE ? this.captureOnMobile() : this.captureOnBrowser()
+    this.isApp ? this.captureOnMobile() : this.captureOnBrowser()
   }
 
   captureOnMobile() {

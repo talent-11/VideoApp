@@ -13,16 +13,12 @@
   </video>
 
   <div class="ion-padding">
-    <!-- <ion-button *ngIf="device==1" (click)="onClickCapture()" expand="block">Capture</ion-button>
-    <div *ngIf="device==2">
-      <input type="file" accept="video/*;capture=camcorder" id="capture_button" />
-      <ion-button (click)="onClickCapture()" expand="block">Capture</ion-button>
-    </div> -->
+    <ion-button [hidden]="!isApp" (click)="onClickCapture()" expand="block">Capture</ion-button>
+    <div [hidden]="isApp">
+      <!-- <input type="file" accept="video/*" id="capture" capture="camcorder" #myinput> -->
+      <!-- <input type="file" name="video" id="capture" accept="video/*" capture="environment" #myinput> -->
+      <input type="file" accept="video/*" capture="camera" id="capture" #myinput>
 
-    <div>
-      <input type="file" accept="video/*" id="capture" capture="camcorder" #myinput>
-      <!-- <input type="file" name="video" accept="video/*" capture="environment"> -->
-    
       <ion-button (click)="onClickCapture()" expand="block">Capture</ion-button>
     </div>
   </div>
