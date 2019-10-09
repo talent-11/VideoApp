@@ -23,14 +23,16 @@ export class HomePage {
   }
 
   ionViewWillEnter() {
-    let input: any = document.querySelector('input[type=file]');
-    let _this = this;
-    input.onchange = function () {
-      if (input.files && input.files.length > 0) {
-        let file = input.files[0];
-        _this.replayVideo(file);
-      }
-    };
+    if (!this.isApp) {
+      let input: any = document.querySelector('input[type=file]');
+      let _this = this;
+      input.onchange = function () {
+        if (input.files && input.files.length > 0) {
+          let file = input.files[0];
+          _this.replayVideo(file);
+        }
+      };
+    }
   }
 
   replayVideo(file) {
